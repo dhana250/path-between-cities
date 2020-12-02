@@ -26,14 +26,15 @@ public class PathFinderServiceImpl implements PathFinderService {
 
         if (StringUtils.isBlank(city1) || StringUtils.isBlank(city2)) {
             return Status.no.toString();
+        } else if (StringUtils.equals(city1, city2)) {
+            return Status.yes.toString();
         }
-
         try {
             fileInputStream = new FileInputStream("city.txt");
             reader = new BufferedReader(new InputStreamReader(fileInputStream));
             String data = reader.readLine();
             while (data != null) {
-                implementGraphDataStructure(data,cities);
+                implementGraphDataStructure(data, cities);
                 data = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -52,11 +53,7 @@ public class PathFinderServiceImpl implements PathFinderService {
                 ex.printStackTrace();
             }
         }
-        List<String> citiesList = findPathBetweenCities(cities.get(city1));
-        if (!CollectionUtils.isEmpty(citiesList) && citiesList.contains(city2)) {
-            return Status.yes.toString();
-        }
-        return Status.no.toString();
+        return findPathBetweenCities(cities.get(city1), city2);
     }
 
     private void implementGraphDataStructure(String citiesPath, Map<String, City> cities) {
@@ -85,9 +82,8 @@ public class PathFinderServiceImpl implements PathFinderService {
         cities.get(destination).getNeighborCities().add(originCity);
     }
 
-    private List<String> findPathBetweenCities(City origin) {
+    private String findPathBetweenCities(City origin, String destination) {
         LinkedList<City> queue = new LinkedList<>();
-        List<String> citiesList = new ArrayList<>();
         queue.add(origin);
         while (!queue.isEmpty()) {
             City presentCity = queue.remove(0);
@@ -95,7 +91,9 @@ public class PathFinderServiceImpl implements PathFinderService {
                 break;
             }
             presentCity.setVisited(true);
-            citiesList.add(presentCity.getCityName());
+            if (StringUtils.equals(presentCity.getCityName(), destination)) {
+                return Status.yes.toString();
+            }
             //Iterate over neighbour cities to get possible paths between Cities
             for (City neighbor : presentCity.getNeighborCities()) {
                 if (!neighbor.isVisited()) {
@@ -105,6 +103,6 @@ public class PathFinderServiceImpl implements PathFinderService {
                 }
             }
         }
-        return citiesList;
+        return Status.no.toString();
     }
 }
