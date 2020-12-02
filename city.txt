@@ -1,0 +1,5 @@
+Boston, New York
+Philadelphia, New York
+Birmingham, Boston
+Atlanta, Philadelphia
+Newark, Boston
