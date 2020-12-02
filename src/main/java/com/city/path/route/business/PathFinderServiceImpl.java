@@ -32,7 +32,7 @@ public class PathFinderServiceImpl implements PathFinderService {
             reader = new BufferedReader(new InputStreamReader(fileInputStream));
             String data = reader.readLine();
             while (data != null) {
-                implementGraphDataStructure(data, city1, city2, cities);
+                implementGraphDataStructure(data,cities);
                 data = reader.readLine();
             }
         } catch (FileNotFoundException e) {
@@ -58,7 +58,7 @@ public class PathFinderServiceImpl implements PathFinderService {
         return Status.No.toString();
     }
 
-    private void implementGraphDataStructure(String citiesPath, String origin1, String destination1, Map<String, City> cities) {
+    private void implementGraphDataStructure(String citiesPath, Map<String, City> cities) {
         String[] citiesArray = citiesPath.split(",");
         String origin = citiesArray[0].trim();
         String destination = citiesArray[1].trim();
