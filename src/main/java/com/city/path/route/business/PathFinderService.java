@@ -4,5 +4,5 @@ import java.io.IOException;
 
 public interface PathFinderService {
 
-    String pathBetweenCities(String city1,String city2);
+    String pathBetweenCities(String origin,String destination);
 }

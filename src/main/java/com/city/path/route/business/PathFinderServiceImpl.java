@@ -3,6 +3,7 @@ package com.city.path.route.business;
 import com.city.path.route.domain.City;
 import org.springframework.stereotype.Service;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.CollectionUtils;
 
 import java.io.*;
 import java.util.*;
@@ -11,9 +12,9 @@ import java.util.*;
 public class PathFinderServiceImpl implements PathFinderService {
 
     public enum Status {
-        Yes,
+        yes,
 
-        No
+        no
 
     }
 
@@ -24,7 +25,7 @@ public class PathFinderServiceImpl implements PathFinderService {
         BufferedReader reader = null;
 
         if (StringUtils.isBlank(city1) || StringUtils.isBlank(city2)) {
-            return Status.No.toString();
+            return Status.no.toString();
         }
 
         try {
@@ -52,27 +53,25 @@ public class PathFinderServiceImpl implements PathFinderService {
             }
         }
         List<String> citiesList = findPathBetweenCities(cities.get(city1));
-        if (citiesList != null && citiesList.contains(city2)) {
-            return Status.Yes.toString();
+        if (!CollectionUtils.isEmpty(citiesList) && citiesList.contains(city2)) {
+            return Status.yes.toString();
         }
-        return Status.No.toString();
+        return Status.no.toString();
     }
 
     private void implementGraphDataStructure(String citiesPath, Map<String, City> cities) {
         String[] citiesArray = citiesPath.split(",");
         String origin = citiesArray[0].trim();
         String destination = citiesArray[1].trim();
-        City originCity = null;
-        City destinationCity = null;
+        City originCity;
+        City destinationCity;
         if (cities.get(origin) == null) {
-            originCity = new City();
-            originCity.setCityName(origin);
+            originCity = new City(origin);
         } else {
             originCity = cities.get(origin);
         }
         if (cities.get(destination) == null) {
-            destinationCity = new City();
-            destinationCity.setCityName(destination);
+            destinationCity = new City(destination);
         } else {
             destinationCity = cities.get(destination);
         }

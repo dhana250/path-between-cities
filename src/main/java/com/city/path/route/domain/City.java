@@ -46,4 +46,10 @@ public class City {
         return neighborCities;
     }
 
+    public City(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public City() {
+    }
 }
