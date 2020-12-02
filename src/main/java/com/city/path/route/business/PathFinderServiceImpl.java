@@ -26,7 +26,7 @@ public class PathFinderServiceImpl implements PathFinderService {
 
         if (StringUtils.isBlank(city1) || StringUtils.isBlank(city2)) {
             return Status.no.toString();
-        } else if (StringUtils.equals(city1, city2)) {
+        } else if (StringUtils.equalsIgnoreCase(city1, city2)) {
             return Status.yes.toString();
         }
         try {
@@ -53,13 +53,13 @@ public class PathFinderServiceImpl implements PathFinderService {
                 ex.printStackTrace();
             }
         }
-        return findPathBetweenCities(cities.get(city1), city2);
+        return findPathBetweenCities(cities.get(city1.toUpperCase()), city2.toUpperCase());
     }
 
     private void implementGraphDataStructure(String citiesPath, Map<String, City> cities) {
         String[] citiesArray = citiesPath.split(",");
-        String origin = citiesArray[0].trim();
-        String destination = citiesArray[1].trim();
+        String origin = citiesArray[0].trim().toUpperCase();
+        String destination = citiesArray[1].trim().toUpperCase();
         City originCity;
         City destinationCity;
         if (cities.get(origin) == null) {
@@ -91,7 +91,7 @@ public class PathFinderServiceImpl implements PathFinderService {
                 break;
             }
             presentCity.setVisited(true);
-            if (StringUtils.equals(presentCity.getCityName(), destination)) {
+            if (StringUtils.equalsIgnoreCase(presentCity.getCityName(), destination)) {
                 return Status.yes.toString();
             }
             //Iterate over neighbour cities to get possible paths between Cities
