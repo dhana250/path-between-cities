@@ -10,8 +10,6 @@ public class City {
 
     private boolean visited;
 
-    private City originCity;
-
     private List<City> neighborCities = new ArrayList<>();
 
     public boolean isVisited() {
@@ -30,14 +28,6 @@ public class City {
         this.cityName = cityName;
     }
 
-    public City getOriginCity() {
-        return originCity;
-    }
-
-    public void setOriginCity(City originCity) {
-        this.originCity = originCity;
-    }
-
     public void setNeighborCities(List<City> neighborCities) {
         this.neighborCities = neighborCities;
     }
@@ -51,5 +41,10 @@ public class City {
     }
 
     public City() {
+    }
+
+    @Override
+    public String toString() {
+        return "CityName: " + this.cityName ;
     }
 }

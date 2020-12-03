@@ -99,7 +99,6 @@ public class PathFinderServiceImpl implements PathFinderService {
                 if (!neighbor.isVisited()) {
                     queue.add(neighbor);
                     neighbor.setVisited(true);
-                    neighbor.setOriginCity(presentCity);
                 }
             }
         }
