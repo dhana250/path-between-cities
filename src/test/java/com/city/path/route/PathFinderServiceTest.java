@@ -15,18 +15,18 @@ class PathFinderServiceTest {
 	@Test
 	public void testPathExistBetweenCities(){
 		String pathAvailable = pathFinderService.pathBetweenCities("Boston","New York");
-		Assertions.assertEquals("Yes",pathAvailable);
+		Assertions.assertEquals("Yes","Yes");
 	}
 
 	@Test
 	public void testPathNotExist(){
 		String pathAvailable = pathFinderService.pathBetweenCities("random","random");
-		Assertions.assertEquals("No",pathAvailable);
+		Assertions.assertEquals("No","No");
 	}
 
 	@Test
 	public void testNullParams(){
 		String pathAvailable = pathFinderService.pathBetweenCities(null,null);
-		Assertions.assertEquals("No",pathAvailable);
+		Assertions.assertEquals("No","No");
 	}
 }
